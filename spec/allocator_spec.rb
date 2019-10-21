@@ -127,6 +127,12 @@ RSpec.describe "Allocator" do
         new_allocator(3).allocate_max_amounts([Money.empty, Money.empty, Money.empty]),
       ).to eq([Money.empty, Money.empty, Money.empty])
     end
+
+    specify "#allocate_max_amounts allocates up to the maxima specified-test" do
+      expect(
+        new_allocator(24.2).allocate_max_amounts([Money.new(46), Money.new(46), Money.new(50), Money.new(50),Money.new(50)]),
+        ).to eq([Money.new(4.6), Money.new(4.6), Money.new(5), Money.new(5), Money.new(5)])
+    end
   end
 
   def new_allocator(amount, currency = nil)

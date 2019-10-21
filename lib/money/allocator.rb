@@ -92,11 +92,12 @@ class Money
 
       subunits_amounts, left_over = amounts_from_splits(1, splits, total_allocatable)
 
-      subunits_amounts.each_with_index do |amount, index|
+      indexes = subunits_amounts.map.with_index.sort_by { |value, index| [-value, index] }.map(&:last)
+      indexes.each do |index|
         break unless left_over > 0
 
         max_amount = maximums[index].value * allocation_currency.subunit_to_unit
-        next unless amount < max_amount
+        next unless subunits_amounts[index] < max_amount
 
         left_over -= 1
         subunits_amounts[index] += 1
