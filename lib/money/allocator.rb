@@ -120,7 +120,7 @@ class Money
       left_over = subunits_to_split
 
       amounts = splits.collect do |ratio|
-        frac = (Helpers.value_to_decimal(subunits_to_split * ratio) / allocations).floor
+        frac = (Helpers.value_to_decimal(subunits_to_split * ratio.numerator / ratio.denominator) / allocations).floor
         left_over -= frac
         frac
       end
